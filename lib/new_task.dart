@@ -71,10 +71,10 @@ class AddTask extends StatelessWidget {
               largeSpace,
               ElevatedButton(
                 onPressed: () {
-                  provider.addTask(Todo(taskTitleController.text,
-                      taskDescriptionController.text));
-
-                  //print(todos);
+                  provider.addTask(Todo(
+                      title: taskTitleController.text,
+                      description: taskDescriptionController.text,
+                      uid: ''));
                 },
                 child: Text(
                   addText,

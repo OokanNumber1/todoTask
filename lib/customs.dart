@@ -3,24 +3,22 @@ import 'package:provider/provider.dart';
 import 'todo_provider.dart';
 
 class Todo {
-  Todo(this.title, this.description);
+  Todo({required this.title, required this.description, required this.uid});
   String title;
   String description;
+  String uid;
 }
 
 class TodoCard extends StatelessWidget {
-  const TodoCard(
-      {required this.taskTitle,
-      required this.taskDecription,
-      //this.taskState = false,
-      this.deleteTask,
-      required this.editTask});
+  TodoCard({
+    required this.task,
+    this.deleteTask,
+    this.editTask,
+  });
 
-  final String taskTitle;
-  final String taskDecription;
-  final Function? deleteTask;
-  //final bool taskState;
-  final Function editTask;
+  final Todo task;
+  final deleteTask;
+  final editTask;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +26,9 @@ class TodoCard extends StatelessWidget {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       tileColor: Colors.grey[900],
-      // leading: Checkbox(
-      //   value: true,
-      //   onChanged: (bool? value) {},
-      // ),
-      title: Text(taskTitle, style: mediumStyle),
+      title: Text(task.title, style: mediumStyle),
       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      //horizontalTitleGap: 50,
-      subtitle: Text(taskDecription, style: descriptionStyle),
+      subtitle: Text(task.description, style: descriptionStyle),
       trailing: Container(
         height: 50,
         width: 50,
@@ -49,7 +42,7 @@ class TodoCard extends StatelessWidget {
                   size: mediumSize,
                 )),
             GestureDetector(
-                onTap: () => deleteTask!(),
+                onTap: () => provider.deleteTask(task.uid),
                 child: Icon(
                   Icons.delete,
                   color: red,

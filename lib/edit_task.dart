@@ -11,9 +11,7 @@ class EditTask extends StatelessWidget {
   Widget build(BuildContext context) {
     TodoProvider provider = Provider.of<TodoProvider>(context, listen: true);
     TextEditingController taskTitleController = TextEditingController();
-    //taskTitleController.text = toEditTask.title;
     TextEditingController taskDescriptionController = TextEditingController();
-    //taskDescriptionController.text = toEditTask.description;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -44,9 +42,7 @@ class EditTask extends StatelessWidget {
                 child: TextField(
                   maxLines: 1,
                   controller: taskTitleController,
-                  // controller : toEditTask.title,
                   decoration: InputDecoration(
-                      //labelText: toEditTask.title,
                       hintText: taskTitleText,
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                       hintStyle: mediumStyle),
@@ -68,7 +64,6 @@ class EditTask extends StatelessWidget {
                   maxLines: 4,
                   controller: taskDescriptionController,
                   decoration: InputDecoration(
-                      //labelText: toEditTask.description,
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                       hintText: taskDescription,
                       hintStyle: mediumStyle),
@@ -78,9 +73,14 @@ class EditTask extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   provider.editTask(
-                      Todo(toEditTask.title, toEditTask.description),
-                      Todo(taskTitleController.text,
-                          taskDescriptionController.text));
+                      Todo(
+                          title: toEditTask.title,
+                          description: toEditTask.description,
+                          uid: ''),
+                      Todo(
+                          title: taskTitleController.text,
+                          description: taskDescriptionController.text,
+                          uid: ''));
                 },
                 child: Text(
                   updateText,
